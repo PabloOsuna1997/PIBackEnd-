@@ -1,0 +1,14 @@
+{
+  "generator-kraken": {
+    "taskModule": "grunt",
+    "lintModule": "eslint",
+    "description": "backend of the class project",
+    "author": "Pablo osuna",
+    "templateModule": false,
+    "i18n": false,
+    "componentPackager": false,
+    "cssModule": false,
+    "jsModule": "requirejs",
+    "useJson": null
+  }
+}

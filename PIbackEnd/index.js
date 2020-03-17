@@ -3,6 +3,9 @@ const morgan = require('morgan');
 const cors = require('cors');
 const app = express();
 
+
+//const { mongoose } = require('./bd/conectionBD');
+
 //setting
 app.set('port',process.env.PORT || 3000);
 

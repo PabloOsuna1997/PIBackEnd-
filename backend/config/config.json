@@ -1,0 +1,48 @@
+{
+    "specialization": {},
+    "middleware": {
+        "compress": {
+            "enabled": true
+        },
+        "appsec": {
+            "priority": 110,
+            "module": {
+                "name": "lusca",
+                "arguments": [
+                    {
+                        "csrf": false,
+                        "xframe": "SAMEORIGIN",
+                        "p3p": false,
+                        "csp": false
+                    }
+                ]
+            }
+        },
+        "static": {
+            "module": {
+                "arguments": [
+                    "path:./.build"
+                ]
+            }
+        },
+        "router": {
+            "module": {
+                "arguments": [
+                    {
+                        "directory": "path:./controllers"
+                    }
+                ]
+            }
+        },
+        "logger": {
+            "module": {
+                "arguments": [
+                    "dev"
+                ]
+            }
+        },
+        "multipart": {
+            "enabled": false
+        }
+    }
+}

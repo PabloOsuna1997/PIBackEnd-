@@ -1,8 +1,8 @@
 module.exports = (body) => {
     return {
         data: {
-            noCuenta: body.noCuenta,
-            contrasena: body.contrasena
+            correo: body.correo,
+            password: body.password
         }
     };
 };

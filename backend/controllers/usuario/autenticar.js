@@ -6,7 +6,7 @@ module.exports = function (router) {
            const entradaAutenticar = require('../../src/mapeoObjetos/usuario/entradaAutenticar');
 
             const data = entradaAutenticar(req.body).data;
-            const result = await db.query('SELECT * FROM USUARIO WHERE noCuenta = ? AND contrasena = ?;',[data.noCuenta,data.contrasena]);
+            const result = await db.query('SELECT * FROM USUARIO WHERE correo = ? AND password = ?;',[data.correo,data.password]);
            
             if(result.length > 0){
                 res.status(200).send({ mensaje: 'Bienvenido' });

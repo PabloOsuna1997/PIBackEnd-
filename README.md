@@ -1,2 +1,0 @@
-# PIBackEnd-
-Una empresa de prestigio tiene el deseo de expandirse y llevar su marca a varios departamentos del país, el problema que se enfrenta esta empresa es que el software que tiene actualmente sirve únicamente para una sede y ellos no quieren que cada sede maneje su base de datos de manera independiente, entonces esta empresa le solicita a su grupo de trabajo el desarrollo de una aplicación web de facturación con una base de datos centralizada para poder llevar un mejor control del crecimiento de cada una.

@@ -25,8 +25,18 @@ module.exports = function (router) {
             if (error.code == 'ER_DUP_ENTRY') {
 
                 const data = await db.query('SELECT sede FROM SEDE_CLIENTE WHERE nit = ?', [req.body.nit]);
-                var sede = Object.assign({}, data[0]);
-                if (sede.sede == req.body.idSede) {
+                var existe = false;
+
+                for (const element of data) { //recorremos todas las sedes en las que se encuentra el cliente
+
+                    var sede = Object.assign({}, element);
+                    console.log(sede);
+                    if (sede.sede == req.body.idSede) { //verifico que no sea la misma sede a la que quiere registrarse
+                        existe = true;
+                        break;
+                    }
+                }
+                if (existe) { //si no existe ese usuario
                     res.status(400).send({ mensaje: 'El usuario ya se encuentra registrado en esta sede.' });
                 } else {
                     const entradaClienteSede = require('../../src/mapeoObjetos/cliente/entradaSedeCliente');

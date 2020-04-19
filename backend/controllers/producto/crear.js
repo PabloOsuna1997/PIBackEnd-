@@ -12,11 +12,8 @@ module.exports = function (router) {
                 //insercion de categorias idProducto = req.body.sku
                 var status = 0;
                 for (const element of req.body.categorias) {
-                    const data = await db.query('SELECT categoria FROM CATEGORIA WHERE nombre = ?', [element.nombre]);
                     const entradaProductoCategoria = require('../../src/mapeoObjetos/producto/entradaCategoriaProducto');
-
-                    var categoria = Object.assign({}, data[0]);
-                    const ress = await db.query('INSERT INTO CATEGORIA_PRODUCTO set ?', [entradaProductoCategoria(categoria.categoria, req.body.sku).data]);
+                    const ress = await db.query('INSERT INTO CATEGORIA_PRODUCTO set ?', [entradaProductoCategoria(element.id, req.body.sku).data]);
 
                     if (ress.affectedRows > 0) {
                         status = 200;

@@ -9,7 +9,7 @@ module.exports = function (router) {
             const result = await db.query('SELECT * FROM USUARIO WHERE correo = ? AND password = ?;',[data.correo,data.password]);
            
             if(result.length > 0){
-                res.status(200).send({ mensaje: 'Bienvenido' });
+                res.status(200).send({ mensaje: 'Bienvenido', result });
             }else{
                 res.status(400).send({ mensaje: 'Credenciales no validas' });
             }

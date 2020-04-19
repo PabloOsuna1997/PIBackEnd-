@@ -12,15 +12,12 @@ module.exports = function (router) {
             console.log(result);
             if(result.affectedRows == 1){
                 res.status(200).send({ mensaje: "Usuario Registrado" });     
-            }else{
-
             }
         }catch(error){
-            if(error.code == 'ER_DUP_ENTRY'){
-                res.message = error;
+            res.message = error;
+            if(error.code == 'ER_DUP_ENTRY'){                
                 res.status(400).send({ mensaje: 'El correo ya se encuentran en uso.' }); 
             }else{
-                res.message = error;
                 res.status(500).send({ mensaje: 'No se pudo completar la solicitud' });
             }
         }

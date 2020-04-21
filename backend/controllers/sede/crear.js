@@ -15,7 +15,11 @@ module.exports = function(router){
             }
 
         }catch(error){
-            res.status(500).send({mensaje: 'No se pudo completar la solicitud.'});
+            if(error.code == "ER_NO_REFERENCED_ROW_2"){
+                res.status(400).send({mensaje: 'El correo del encargado no existe'})
+            }else{
+                res.status(500).send({mensaje: 'No se pudo completar la solicitud.'});
+            }
         }   
     });
 };

@@ -7,7 +7,7 @@ module.exports = function (router) {
             const entradaEditarSede = require('../../src/mapeoObjetos/sede/entradaEditar');
             const result = await db.query('UPDATE SEDE set ? WHERE codigo_sede = ?', [entradaEditarSede(req.body).data, req.params.id]);
 
-            if (result.affectedResult > 0) {
+            if (result.affectedRows > 0) {
                 res.status(200).send({ mensaje: 'Sede actualizada.' });
             } else {
                 res.status(400).send({ mensaje: 'Datos incorrectos o la sede no existe.' });

@@ -8,7 +8,7 @@ module.exports = function (router) {
                 //actualizar el inventario
                 res.status(200).send({ mensaje: 'Venta entregada' });
             } else {
-                res.status(400).send({ mensaje: 'La transferencia aun no se ha aceptado o el correo indicado no existe' });
+                res.status(400).send({ mensaje: 'El correo indicado no existe o la venta no existe' });
             }
 
         } catch (error) {

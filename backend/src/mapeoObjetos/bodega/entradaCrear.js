@@ -4,7 +4,8 @@ module.exports = (body) =>{
             nombre: body.nombre,
             direccion: body.direccion,
             estado: 1,  //al momento de crear siempre estara activa
-            encargado: body.correoEncargado
+            encargado: body.correoEncargado,
+            sede: body.idSede
         }
     }
 };

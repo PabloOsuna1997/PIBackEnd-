@@ -1,4 +1,4 @@
-const db = require('../../src/dataBase/conexion');
+const db = require('../../../src/dataBase/conexion');
 
 module.exports = function (router) {
     router.get('/:correo', async (req, res) => {
@@ -15,5 +15,4 @@ module.exports = function (router) {
 
         }
     });
-
 };

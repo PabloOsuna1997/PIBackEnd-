@@ -3,6 +3,7 @@ const db = require('../../src/dataBase/conexion');
 module.exports = function (router) {
     router.get('/', async (req, res) => {
         try {
+            //en estado de solicitud
             const result = await db.query('SELECT * FROM TRANSFERENCIA WHERE estado_transferencia = 0;');
             if (result.length > 0) {
                 res.status(200).send({ transferencias: result });

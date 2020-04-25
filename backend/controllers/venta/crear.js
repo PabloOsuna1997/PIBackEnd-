@@ -35,6 +35,7 @@ module.exports = function (router) {
                     }
                 }
                 if (status == 200) {
+                    //actualizar el inventario
                     res.status(200).send({ mensaje: 'Venta Agregada con exito.' });
                 } else {
                     res.status(400).send({ mensaje: 'Venta Agregada con exito pero alguno de sus productos no pudo registrarse.' });

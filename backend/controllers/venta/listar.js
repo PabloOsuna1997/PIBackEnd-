@@ -6,7 +6,7 @@ module.exports = function (router) {
             const result = await db.query('SELECT * FROM VENTA;');
 
             if (result.length > 0) {
-                res.status(200).send({ clientes: result });
+                res.status(200).send({ ventas: result });
             } else {
                 res.status(200).send({ mensaje: 'Actualmente no existen ventas.' });
             }

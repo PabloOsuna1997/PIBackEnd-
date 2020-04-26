@@ -12,7 +12,8 @@ module.exports = (body) => {
             repartidor: body.correoRepartidor,
             tipo_venta: body.tipoVenta,  //tipo: 0 venta local tipo: 1 vente a domicilio
             sobre_cargo: body.sobreCargo,
-            total: body.total
+            total: body.total,
+            estado_repartidor: 0
         }
     }
 };

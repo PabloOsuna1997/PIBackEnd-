@@ -3,7 +3,7 @@ const db = require('../../src/dataBase/conexion');
 module.exports = function (router) {
     router.put('/:id', async (req, res) => {
         try {
-            const result = await db.query('UPDATE CATEGORIA set ? WHERE categoria = ?' , [req.body.nombre, req.params.id]);
+            const result = await db.query('UPDATE CATEGORIA set nombre = ? WHERE categoria = ?' , [req.body.nombre, req.params.id]);
             if(result.affectedRows > 0){
                 res.status(200).send({mensaje: 'Categoria Editada.'});
             }else{

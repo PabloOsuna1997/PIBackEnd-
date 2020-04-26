@@ -6,6 +6,10 @@ module.exports = function (router) {
             
             const entradaVenta = require('../../src/mapeoObjetos/venta/entradaCrear');
             //validar usuario repartidor
+            const vendedor = await db.query('SELECT rol FROM ROL_USUARIO WHERE correo = ?', [req.body.correoVendedor]);
+            if (vendedor.length <= 0) {
+                res.status(400).send({ mensaje: 'El vendedor no existe.' });
+            }
             if (req.body.correoRepartidor != '') {
                 const repartidor = await db.query('SELECT rol FROM ROL_USUARIO WHERE correo = ?', [req.body.correoRepartidor]);
                 if (repartidor.length <= 0) {
@@ -44,7 +48,12 @@ module.exports = function (router) {
                 res.status(400).send({ mensaje: 'Datos incorrectos.' });
             }
         } catch (error) {
-            res.status(500).send({ mensaje: 'No se pudo completar la solicitud.' });
+            console.log(error)
+            if(error.code == 'ER_NO_REFERENCED_ROW_2'){
+                res.status(400).send({ mensaje: 'El nit del cliente no se encuentra registrado en ninguna de nuestras sedes.' });
+            }else{
+                res.status(500).send({ mensaje: 'No se pudo completar la solicitud.' });
+            }
         }
     });
 };

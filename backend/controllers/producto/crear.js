@@ -24,14 +24,18 @@ module.exports = function (router) {
 
                 if (status == 200) {
                     //insertar en inventario de la bodega especificada
-                    const inv = await db.query('SELECT * FROM INVENTARIO WHERE bodega = ?', [req.body.idBodega]);
-                    var inventario = Object.assign({}, inv[0]);
-                    const entradaInvProducto = require('../../src/mapeoObjetos/producto/entradaInventarioProducto');
-                    const invProducto = await db.query('INSERT INTO DETALLE_INVENTARIO set ?', [entradaInvProducto(req.body.sku, req.body.cantidad, inventario.codigo_inventario).data]);
-
-                    if (invProducto.affectedRows > 0) {
-                        res.status(200).send({ mensaje: 'Producto Agregado con exito.' });
-                    } else {
+                    try {
+                        const inv = await db.query('SELECT * FROM INVENTARIO WHERE bodega = ?', [req.body.idBodega]);
+                        var inventario = Object.assign({}, inv[0]);
+                        const entradaInvProducto = require('../../src/mapeoObjetos/producto/entradaInventarioProducto');
+                        const invProducto = await db.query('INSERT INTO DETALLE_INVENTARIO set ?', [entradaInvProducto(req.body.sku, req.body.cantidad, inventario.codigo_inventario).data]);
+    
+                        if (invProducto.affectedRows > 0) {
+                            res.status(200).send({ mensaje: 'Producto Agregado con exito.' });
+                        } else {
+                            res.status(400).send({ mensaje: 'Producto Agregado con exito pero no se pudo agregar al inventario' });
+                        }
+                    }catch(error){
                         res.status(400).send({ mensaje: 'Producto Agregado con exito pero no se pudo agregar al inventario' });
                     }
                 } else {

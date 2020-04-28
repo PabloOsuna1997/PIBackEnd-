@@ -4,6 +4,7 @@ module.exports = function (router) {
     router.post('/', async (req, res) => {
         try {
             const entradaSolicitar = require('../../src/mapeoObjetos/transferencia/entradaSolicitar');
+            //verificar si es interna que las bodegas pertenezcan a la misma sede
             const result = await db.query('INSERT INTO TRANSFERENCIA set ?', [entradaSolicitar(req.body).data]);
             if (result.affectedRows > 0) {
                 res.status(200).send({ mensaje: 'Transferencia solicitada.' });

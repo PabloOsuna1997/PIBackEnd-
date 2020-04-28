@@ -5,7 +5,7 @@ module.exports = function (router) {
     router.get('/:idBodega', async (req, res) => {
 
         try {
-            const result = await db.query(`SELECT  p.sku, p.codigo_barras, p.nombre, p.descripcion, precio
+            const result = await db.query(`SELECT  p.sku, p.codigo_barras, p.nombre, p.descripcion, precio, di.cantidad_nueva as cantidadDisponible
                 FROM PRODUCTO p INNER JOIN DETALLE_INVENTARIO di
                 ON p.sku = di.producto
                 INNER JOIN INVENTARIO i

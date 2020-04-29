@@ -3,7 +3,7 @@ const db = require('../../../src/dataBase/conexion');
 module.exports = function (router) {
     router.get('/:correo', async (req, res) => {
         try {
-            const result = await db.query('SELECT * FROM TRANSFERENCIA WHERE repartidor = ? ', [req.params.correo]);
+            const result = await db.query('SELECT * FROM TRANSFERENCIA WHERE repartidor = ?  AND  estado_transferencia = 2', [req.params.correo]);
             
             for (let index = 0; index < result.length; index++) {
                 var trans = Object.assign({}, result[index]);
@@ -15,17 +15,21 @@ module.exports = function (router) {
                 const bodegaOrigen_ = Object.assign({}, bodegaOrigen[0]);
                 const bodegaDestino = await db.query('SELECT nombre FROM BODEGA WHERE codigo_bodega = ?', [trans.bodega_destino]);
                 const bodegaDestino_ = Object.assign({}, bodegaDestino[0]);
+                const nombreProducto = await db.query('SELECT nombre FROM PRODUCTO WHERE sku = ?', [trans.producto]);
+                const nombreP = Object.assign({}, nombreProducto[0]);
                 
                 const nombreSedeOrigen = nombreOrigen_.alias;
                 const nombreSedeDestino = nombreDestino_.alias;
                 const nombreBodegaOrigen = bodegaOrigen_.nombre;
                 const nombreBodegaDestino = bodegaDestino_.nombre;
+                const nombreProduct = nombreP.nombre;
                 result[index] = {
                     ...trans,
                     nombreSedeOrigen,
                     nombreSedeDestino,
                     nombreBodegaOrigen,
-                    nombreBodegaDestino
+                    nombreBodegaDestino,
+                    nombreProduct
                 }
             }
             

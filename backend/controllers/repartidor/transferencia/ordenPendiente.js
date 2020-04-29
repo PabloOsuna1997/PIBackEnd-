@@ -16,17 +16,21 @@ module.exports = function (router) {
                 const bodegaOrigen_ = Object.assign({}, bodegaOrigen[0]);
                 const bodegaDestino = await db.query('SELECT nombre FROM BODEGA WHERE codigo_bodega = ?', [trans.bodega_destino]);
                 const bodegaDestino_ = Object.assign({}, bodegaDestino[0]);
+                const nombreProducto = await db.query('SELECT nombre FROM PRODUCTO WHERE sku = ?', [trans.producto]);
+                const nombreP = Object.assign({}, nombreProducto[0]);
                 
                 const nombreSedeOrigen = nombreOrigen_.alias;
                 const nombreSedeDestino = nombreDestino_.alias;
                 const nombreBodegaOrigen = bodegaOrigen_.nombre;
                 const nombreBodegaDestino = bodegaDestino_.nombre;
+                const nombreProduct = nombreP.nombre;
                 result[index] = {
                     ...trans,
                     nombreSedeOrigen,
                     nombreSedeDestino,
                     nombreBodegaOrigen,
-                    nombreBodegaDestino
+                    nombreBodegaDestino,
+                    nombreProduct
                 }
             }
 

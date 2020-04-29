@@ -48,7 +48,7 @@ module.exports = function (router) {
                         if (updateDestino.affectedRows > 0) {
                             const logInventario = require('../../../src/mapeoObjetos/bodega/inventario/logInventario');
                             req.body.correoUsuario = trans.usuario_acepta;
-                            req.body.motivo = "Transferencia interna.";
+                            req.body.motivo = "Transferencia externa.";
                             req.body.skuProducto = trans.producto;
                             req.body.cantidadNueva = di.cantidad_nueva - trans.cantidad_saliente;
                             //log de actualizacion de inventario

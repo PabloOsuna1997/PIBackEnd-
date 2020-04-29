@@ -7,6 +7,12 @@ module.exports = function (router) {
         try {
             const result = await db.query('SELECT * FROM LOG_ACTUALIZACION;');
 
+            for (let index = 0; index < result.length; index++) { 
+                var log = Object.assign({}, result[index]);
+                const nombre = await db.query('SELECT nombre FROM PRODUCTO WHERE sku = ?',[log.skuProducto]);
+                const nameP = Object.assign({}, nombre[0]);
+                result[index].nombre = nameP.nombre;              
+            } 
             if (result.length > 0) {
                 res.status(200).send({ clientes: result });
             } else {

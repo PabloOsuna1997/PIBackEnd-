@@ -5,11 +5,16 @@ module.exports = function (router) {
         try {
             if (req.body.correoRepartidor == undefined) {           //aceptacion interna
                 req.body.correoRepartidor = null
+            }else{
+                if(req.body.correoRepartidor  == ''){
+                    res.status(400).send({mensaje: 'Se necesita repartidor para la transferencia externa..'});
+                }   
             }
             const entradaAceptarTransferencia = require('../../src/mapeoObjetos/transferencia/entradaAceptarTransferencia');
             const transferencia = await db.query('SELECT * FROM TRANSFERENCIA WHERE codigo_transferencia = ?', [req.params.id]);
             var trans = Object.assign({}, transferencia[0]);
             //vericar si es aceptacion interna o externa
+            //SI
             const result = await db.query('UPDATE TRANSFERENCIA set ? WHERE codigo_transferencia = ?', [entradaAceptarTransferencia(req.body, trans).data, req.params.id]);
             if (result.affectedRows > 0) {
 
@@ -35,6 +40,7 @@ module.exports = function (router) {
                         detalle1 = await db.query('SELECT * FROM DETALLE_INVENTARIO WHERE inventario = ? AND producto = ?',
                             [inventarioDestino.codigo_inventario, trans.producto]);
                         di1 = Object.assign({}, detalle1[0]);
+                        
                         if (detalle1.length < 1) {
                             //creamos ese detalle de inventario
                             const entradaInvProducto = require('../../src/mapeoObjetos/producto/entradaInventarioProducto');
@@ -75,8 +81,10 @@ module.exports = function (router) {
                     }
                 }else{
                     //transferencia externa
+                    res.status(200).send({ mensaje: 'Transferencia externa aceptada.' });
                 }
             } else {
+                console.log("hola");
                 res.status(400).send({ mensaje: 'No se pudo aceptar la tranferencia' });
             }
 
